@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloacker - Eletrônicos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+</head>
+<body>
+    <div id="particles-js"></div>
+    
+    <a href="https://wa.me/5519991627085" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <header>
+        <div class="container">
+            <h1 class="typewriter"><i class="fa-solid fa-laptop-code"></i> Cloacker</h1>
+            <div class="header-right">
+                <button id="theme-toggle"><i class="fa-solid fa-moon"></i></button>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Pesquisar produtos...">
+                    <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <nav>
+                    <a href="#admin" id="admin-link" style="display: none;">Admin</a>
+                    <div class="cart-container">
+                        <button id="cart-btn"><i class="fa-solid fa-cart-shopping"></i> <span id="cart-count">0</span></button>
+                        <div class="cart-dropdown" id="cart-dropdown"></div>
+                    </div>
+                    <div class="wishlist-container">
+                        <button id="favorites-btn"><i class="fa-regular fa-heart"></i></button>
+                        <div class="wishlist-dropdown" id="wishlist-dropdown"></div>
+                    </div>
+                    <div class="user-menu-container">
+                        <button id="login-btn"><i class="fa-solid fa-user"></i></button>
+                        <div class="user-dropdown" id="user-dropdown" style="display: none;">
+                            <div class="user-info">
+                                <img src="https://via.placeholder.com/40" alt="User" id="user-avatar">
+                                <div>
+                                    <span id="user-name">Usuário</span>
+                                    <span id="user-email">email@exemplo.com</span>
+                                </div>
+                            </div>
+                            <a href="#orders" class="user-menu-item"><i class="fa-solid fa-box-open"></i> Meus Pedidos</a>
+                            <a href="#wishlist" class="user-menu-item"><i class="fa-solid fa-heart"></i> Lista de Desejos</a>
+                            <a href="#settings" class="user-menu-item"><i class="fa-solid fa-gear"></i> Configurações</a>
+                            <button id="logout-btn" class="user-menu-item danger"><i class="fa-solid fa-sign-out-alt"></i> Sair</button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="filters">
+            <select id="category-filter">
+                <option value="all">Todas as Categorias</option>
+                <option value="smartphone">Smartphones</option>
+                <option value="notebook">Notebooks</option>
+                <option value="tablet">Tablets</option>
+                <option value="acessorio">Acessórios</option>
+                <option value="gamer">Gamer</option>
+            </select>
+            <select id="price-filter">
+                <option value="all">Todos os Preços</option>
+                <option value="0-1000">Até R$ 1.000</option>
+                <option value="1000-3000">R$ 1.000 - 3.000</option>
+                <option value="3000-5000">R$ 3.000 - 5.000</option>
+                <option value="5000+">Acima de R$ 5.000</option>
+            </select>
+            <select id="rating-filter">
+                <option value="all">Todas as Avaliações</option>
+                <option value="5">5 Estrelas</option>
+                <option value="4">4+ Estrelas</option>
+                <option value="3">3+ Estrelas</option>
+            </select>
+            <button id="clear-filters">Limpar Filtros</button>
+            <button id="compare-btn" style="display: none;"><i class="fa-solid fa-scale-balanced"></i> Comparar (<span id="compare-count">0</span>)</button>
+        </div>
+
+        <section id="products" class="products-grid"></section>
+
+        <section class="recently-viewed">
+            <h2>Vistos Recentemente</h2>
+            <div class="splide" id="recently-viewed-slider">
+                <div class="splide__track">
+                    <div class="splide__list" id="recently-viewed-list"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="login-form">
+                <h2>Login</h2>
+                <div class="social-login">
+                    <button class="google-login"><i class="fab fa-google"></i> Continuar com Google</button>
+                    <button class="facebook-login"><i class="fab fa-facebook-f"></i> Continuar com Facebook</button>
+                    <div class="divider">ou</div>
+                </div>
+                <form id="loginForm">
+                    <input type="email" id="login-email" placeholder="E-mail" required>
+                    <input type="password" id="login-password" placeholder="Senha" required>
+                    <button type="submit">Entrar</button>
+                </form>
+                <p>Não tem conta? <a href="#" id="show-register">Registre-se</a></p>
+            </div>
+            <div id="register-form" style="display: none;">
+                <h2>Registro</h2>
+                <form id="registerForm">
+                    <input type="text" id="register-name" placeholder="Nome completo" required>
+                    <input type="email" id="register-email" placeholder="E-mail" required>
+                    <input type="password" id="register-password" placeholder="Senha (mínimo 6 caracteres)" minlength="6" required>
+                    <button type="submit">Registrar</button>
+                </form>
+                <p>Já tem conta? <a href="#" id="show-login">Faça Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content product-modal-content">
+            <span class="close">&times;</span>
+            <div id="product-modal-content"></div>
+        </div>
+    </div>
+
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Finalizar Compra</h2>
+            <div class="coupon-section">
+                <input type="text" id="coupon-code" placeholder="Código de cupom">
+                <button id="apply-coupon">Aplicar</button>
+            </div>
+            <div id="coupon-message"></div>
+            <div id="checkout-items"></div>
+            <div class="checkout-total">
+                <h3>Total: <span id="checkout-total">R$ 0,00</span></h3>
+                <p id="discount-info" style="display: none;">Desconto: <span id="discount-amount">R$ 0,00</span></p>
+            </div>
+            <div class="payment-options">
+                <h3>Opções de Pagamento</h3>
+                <div class="payment-methods">
+                    <label class="payment-method">
+                        <input type="radio" name="payment" value="credit" checked>
+                        <i class="fa-solid fa-credit-card"></i> Cartão de Crédito
+                    </label>
+                    <label class="payment-method">
+                        <input type="radio" name="payment" value="pix">
+                        <i class="fa-solid fa-qrcode"></i> PIX
+                    </label>
+                    <label class="payment-method">
+                        <input type="radio" name="payment" value="boleto">
+                        <i class="fa-solid fa-barcode"></i> Boleto
+                    </label>
+                </div>
+                <div id="installment-options" style="display: none;">
+                    <label for="installments">Parcelamento:</label>
+                    <select id="installments">
+                        <option value="1">1x de R$ 0,00 sem juros</option>
+                    </select>
+                </div>
+            </div>
+            <button id="confirm-checkout" class="checkout-btn">Confirmar Compra</button>
+        </div>
+    </div>
+
+    <div id="favorites-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="wishlist-header">
+                <h2>Meus Favoritos</h2>
+                <div class="wishlist-actions">
+                    <button id="create-wishlist"><i class="fa-solid fa-plus"></i> Nova Lista</button>
+                </div>
+            </div>
+            <div class="wishlist-tabs">
+                <button class="wishlist-tab active" data-list="all">Todos</button>
+            </div>
+            <div id="favorites-list" class="products-grid"></div>
+        </div>
+    </div>
+
+    <div id="compare-modal" class="modal">
+        <div class="modal-content compare-modal-content">
+            <span class="close">&times;</span>
+            <h2>Comparar Produtos</h2>
+            <div id="compare-products" class="compare-table"></div>
+            <div class="compare-actions">
+                <button id="clear-comparison">Limpar Comparação</button>
+                <button id="add-all-to-cart">Adicionar Todos ao Carrinho</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="reviews-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="reviews-product-title">Avaliações</h2>
+            <div id="reviews-list"></div>
+            <div id="add-review-section" style="display: none;">
+                <h3>Deixe sua avaliação</h3>
+                <div class="rating-input">
+                    <span>Avaliação:</span>
+                    <div class="stars">
+                        <i class="fa-regular fa-star" data-rating="1"></i>
+                        <i class="fa-regular fa-star" data-rating="2"></i>
+                        <i class="fa-regular fa-star" data-rating="3"></i>
+                        <i class="fa-regular fa-star" data-rating="4"></i>
+                        <i class="fa-regular fa-star" data-rating="5"></i>
+                    </div>
+                </div>
+                <textarea id="review-text" placeholder="Conte sua experiência com este produto..."></textarea>
+                <button id="submit-review">Enviar Avaliação</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#7c3aed"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#7c3aed",
+                        "opacity": 0.2,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+
+            new Splide('#recently-viewed-slider', {
+                type: 'slide',
+                perPage: 4,
+                perMove: 1,
+                gap: '20px',
+                pagination: false,
+                breakpoints: {
+                    1200: { perPage: 3 },
+                    768: { perPage: 2 },
+                    480: { perPage: 1 }
+                }
+            }).mount();
+        });
+    </script>
+</body>
+</html>
