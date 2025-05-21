@@ -148,7 +148,6 @@ nav {
     right: -5px;
 }
 
-/* Estilo para o avatar pequeno no botão de login quando logado */
 .user-avatar-small {
     width: 40px;
     height: 40px;
@@ -158,7 +157,6 @@ nav {
     box-shadow: var(--neon-glow);
 }
 
-/* Ajuste para o botão de login */
 #login-btn {
     display: flex;
     align-items: center;
@@ -249,7 +247,6 @@ nav {
     background-color: var(--light-gray);
 }
 
-/* Estilo específico para o botão de sair */
 button.user-menu-item {
     width: 100%;
     text-align: left;
@@ -304,7 +301,6 @@ button.user-menu-item:hover {
     gap: 5px;
 }
 
-/* Ajuste para imagens do carrinho */
 .cart-item-image {
     width: 60px;
     height: 60px;
@@ -314,7 +310,6 @@ button.user-menu-item:hover {
     border: 1px solid var(--dark-gray);
 }
 
-/* Ajuste para imagens na finalização da compra */
 .checkout-item-image {
     width: 80px;
     height: 80px;
@@ -489,6 +484,7 @@ button.user-menu-item:hover {
     font-weight: bold;
     cursor: pointer;
     transition: var(--transition);
+    z-index: 10;
 }
 
 .modal-content .close:hover {
@@ -642,7 +638,6 @@ input:focus, select:focus, textarea:focus {
     text-align: center;
 }
 
-/* Estilo específico para os controles de quantidade na finalização de compra */
 .checkout-item-quantity {
     display: flex;
     align-items: center;
@@ -846,6 +841,7 @@ input:focus, select:focus, textarea:focus {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    padding-top: 20px;
 }
 
 .wishlist-tabs {
@@ -876,7 +872,6 @@ input:focus, select:focus, textarea:focus {
     border-color: var(--secondary-color);
 }
 
-/* Compare modal styles */
 .compare-table {
     width: 100%;
     overflow-x: auto;
@@ -909,7 +904,6 @@ input:focus, select:focus, textarea:focus {
     margin-top: 20px;
 }
 
-/* Reviews styles */
 .review-item {
     padding: 15px 0;
     border-bottom: 1px solid var(--dark-gray);
@@ -950,7 +944,6 @@ input:focus, select:focus, textarea:focus {
     color: var(--star-color);
 }
 
-/* Recently viewed section */
 .recently-viewed {
     margin: 50px 0;
 }
@@ -975,7 +968,6 @@ input:focus, select:focus, textarea:focus {
     background: var(--secondary-color);
 }
 
-/* Social login */
 .social-login {
     display: flex;
     flex-direction: column;
@@ -1051,7 +1043,6 @@ input:focus, select:focus, textarea:focus {
         width: 100%;
     }
     
-    /* Ajustes responsivos para checkout em telas pequenas */
     .checkout-item {
         flex-wrap: wrap;
         gap: 10px;
@@ -1061,4 +1052,21 @@ input:focus, select:focus, textarea:focus {
         order: 2;
         margin-top: 10px;
     }
+}
+
+.compare-table img {
+    max-width: 120px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.compare-product-image {
+    max-width: 120px;
+    max-height: 120px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
 }
